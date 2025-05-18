@@ -22,11 +22,8 @@
         }
 
         function formatDate(dateStr) {
-            const locale = navigator.language || navigator.userLanguage || 'en-US';
             const d = new Date(dateStr);
-            const date1 = d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
-
-            return date1;
+            return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
         }
 
         function getDateRange(start, end) {
@@ -64,37 +61,11 @@
             });
             return dayMap;
         }
-//groupView_copy
-        function groupByStays(items) {
-            const dayMap = {};
-            items.forEach(item => {
-                if ((item.type === 'Hotel Stay' || item.type === 'Cruise Stay') && item.start_date && item.end_date) {
-                    let days = getDaysBetween(item.start_date, item.end_date);
-                    // remove one night for checkout of stay
-                    days = days.slice(0, -1);
-                    days.forEach((day, idx) => {
-                        if (!dayMap[day]) dayMap[day] = [];
-                        // Only add the group on the first day
-                        //if (idx === 0) {
-                            dayMap[day].push({ ...item, isGroup: true });
-                        //}
-                    });
-                } else if (item.date) {
-                    if (!dayMap[item.date]) dayMap[item.date] = [];
-                    dayMap[item.date].push(item);
-                }
-            });
-            return dayMap;
-        }
 
         function renderDays(dayMap) {
             const days = Object.keys(dayMap).sort();
             const daysList = document.getElementById('days');
-
-            
-
             days.forEach(day => {
-                // create day rows
                 const li = document.createElement('li');
                 li.className = 'day-item';
                 const dateHeader = document.createElement('div');
@@ -102,7 +73,6 @@
                 dateHeader.style.fontWeight = 'bold';
                 li.appendChild(dateHeader);
 
-                // add items inside day
                 dayMap[day].forEach(item => {
                     if (item.isGroup) {
                         const groupDiv = document.createElement('div');
@@ -123,8 +93,7 @@
         }
 
         fetchTripData().then(data => {
-            const dayMap = groupByStays(data);
-            //const dayMap = groupByDays(data);
+            const dayMap = groupByDays(data);
             renderDays(dayMap);
         });
     </script>
