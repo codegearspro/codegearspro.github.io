@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trip 2025 - Group View</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        .day-list { list-style: none; padding: 0; }
+        .day-item { margin-bottom: 1.5em; }
+        .group { background: #f0f8ff; padding: 1em; border-radius: 6px; margin-bottom: 1em; }
+        .group-title { font-weight: bold; }
+        .activity { margin-left: 1em; }
+    </style>
+</head>
+<body>
+    <h1>Trip 2025 - Group View</h1>
+    <ul id="days" class="day-list"></ul>
+    <script>
+        async function fetchTripData() {
+            const res = await fetch('https://codegearspro.github.io/trip2025.json');
+            return res.json();
+        }
+
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function getDateRange(start, end) {
+            if (start === end) return formatDate(start);
+            return `${formatDate(start)} - ${formatDate(end)}`;
+        }
+
+        function getDaysBetween(start, end) {
+            const days = [];
+            let current = new Date(start);
+            const last = new Date(end);
+            while (current <= last) {
+                days.push(current.toISOString().slice(0,10));
+                current.setDate(current.getDate() + 1);
+            }
+            return days;
+        }
+
+        function groupByDays(items) {
+            const dayMap = {};
+            items.forEach(item => {
+                if ((item.type === 'Hotel Stay' || item.type === 'Cruise') && item.start_date && item.end_date) {
+                    const days = getDaysBetween(item.start_date, item.end_date);
+                    days.forEach((day, idx) => {
+                        if (!dayMap[day]) dayMap[day] = [];
+                        // Only add the group on the first day
+                        if (idx === 0) {
+                            dayMap[day].push({ ...item, isGroup: true });
+                        }
+                    });
+                } else if (item.date) {
+                    if (!dayMap[item.date]) dayMap[item.date] = [];
+                    dayMap[item.date].push(item);
+                }
+            });
+            return dayMap;
+        }
+
+        function renderDays(dayMap) {
+            const days = Object.keys(dayMap).sort();
+            const daysList = document.getElementById('days');
+            days.forEach(day => {
+                const li = document.createElement('li');
+                li.className = 'day-item';
+                const dateHeader = document.createElement('div');
+                dateHeader.textContent = formatDate(day);
+                dateHeader.style.fontWeight = 'bold';
+                li.appendChild(dateHeader);
+
+                dayMap[day].forEach(item => {
+                    if (item.isGroup) {
+                        const groupDiv = document.createElement('div');
+                        groupDiv.className = 'group';
+                        groupDiv.innerHTML = `<span class="group-title">${item.type} Stay:</span> ${item.name || ''} <br>
+                            <small>${getDateRange(item.start_date, item.end_date)}</small>`;
+                        li.appendChild(groupDiv);
+                    } else {
+                        const actDiv = document.createElement('div');
+                        actDiv.className = 'activity';
+                        actDiv.textContent = `${item.type}: ${item.name || ''}`;
+                        li.appendChild(actDiv);
+                    }
+                });
+
+                daysList.appendChild(li);
+            });
+        }
+
+        fetchTripData().then(data => {
+            const dayMap = groupByDays(data);
+            renderDays(dayMap);
+        });
+    </script>
+</body>
+</html>
