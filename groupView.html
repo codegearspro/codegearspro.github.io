@@ -14,16 +14,29 @@
 </head>
 <body>
     <h1>Trip 2025 - Group View</h1>
-    <ul id="days" class="day-list"></ul>
+    <a href="index.html" class="back-link">&larr;Back</a>
+    <ul id="daysMain" class="day-list"></ul>
     <script>
         async function fetchTripData() {
             const res = await fetch('https://codegearspro.github.io/trip2025.json');
             return res.json();
         }
 
+        const dateOnlyRegex = /^([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1])))$/
+
+        function parseDateString(dateString) {
+            if (dateOnlyRegex.test(dateString)) {
+                const utcDate = new Date(dateString)
+                const localDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000)
+                return localDate  
+            }
+            return new Date(dateString)
+        }
+
         function formatDate(dateStr) {
-            const locale = navigator.language || navigator.userLanguage || 'en-US';
-            const d = new Date(dateStr);
+            //const locale = navigator.language || navigator.userLanguage || 'en-US';
+            //const d = new Date(dateStr);
+            const d = parseDateString(dateStr);
             const date1 = d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 
             return date1;
@@ -36,8 +49,10 @@
 
         function getDaysBetween(start, end) {
             const days = [];
-            let current = new Date(start);
-            const last = new Date(end);
+            let current = parseDateString(start);
+            //let current = new Date(start);
+            const last = parseDateString(end);
+            //const last = new Date(end);
             while (current <= last) {
                 days.push(current.toISOString().slice(0,10));
                 current.setDate(current.getDate() + 1);
@@ -75,9 +90,9 @@
                     days.forEach((day, idx) => {
                         if (!dayMap[day]) dayMap[day] = [];
                         // Only add the group on the first day
-                        //if (idx === 0) {
+                        if (idx === 0) {
                             dayMap[day].push({ ...item, isGroup: true });
-                        //}
+                        }
                     });
                 } else if (item.date) {
                     if (!dayMap[item.date]) dayMap[item.date] = [];
@@ -89,7 +104,7 @@
 
         function renderDays(dayMap) {
             const days = Object.keys(dayMap).sort();
-            const daysList = document.getElementById('days');
+            const daysList = document.getElementById('daysMain');
 
             
 
@@ -122,10 +137,44 @@
             });
         }
 
+        function renderDaysGroup(dayMap) {
+            const days = Object.keys(dayMap).sort();
+            const daysList = document.getElementById('daysMain');
+
+            days.forEach(day => {
+                // create day rows
+                const li = document.createElement('li');
+                li.className = 'day-item';
+                const dateHeader = document.createElement('div');
+                //dateHeader.textContent = formatDate(day);
+                dateHeader.style.fontWeight = 'bold';
+                li.appendChild(dateHeader);
+
+                // add items inside day
+                dayMap[day].forEach(item => {
+                    if (item.isGroup) {
+                        const groupDiv = document.createElement('div');
+                        groupDiv.className = 'group';
+                        groupDiv.innerHTML = `<span class="group-title">${item.type} :</span> ${item.name || ''} <br>
+                            <small>${getDateRange(item.start_date, item.end_date)}</small>`;
+                        li.appendChild(groupDiv);
+                    } else {
+                        const actDiv = document.createElement('div');
+                        actDiv.className = 'activity';
+                        actDiv.textContent = `${item.type}: ${item.name || ''}`;
+                        li.appendChild(actDiv);
+                    }
+                });
+
+                daysList.appendChild(li);
+            });
+        }
+
         fetchTripData().then(data => {
             const dayMap = groupByStays(data);
             //const dayMap = groupByDays(data);
-            renderDays(dayMap);
+            renderDaysGroup(dayMap);
+            //renderDays(dayMap);
         });
     </script>
 </body>

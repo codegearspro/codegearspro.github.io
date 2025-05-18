@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Trip Itinerary Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; background: #000; }
         .itinerary-container { background: #fff; padding: 24px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.08);}
@@ -13,6 +14,15 @@
         .label { font-weight: bold; }
         .back-link { display: inline-block; margin-bottom: 20px; color: #1976d2; text-decoration: none; }
         .back-link:hover { text-decoration: underline; }
+        .icons {
+            margin-bottom: 0.5rem;
+        }
+        .icons i {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            opacity: 0.85;
+        }
+
     </style>
 </head>
 <body>
@@ -83,59 +93,43 @@
                 address = activity.address;
             }
 
+            let info = activity.info;
+            if (typeof info === "string") {
+                info = info.replace(/\n/g, "<br>");
+            }
+
             const itinerary = document.getElementById('itinerary');
             const section = document.createElement('section');
             section.className = 'day-section';
-            section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${img}')`;
+            //section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${img}')`;
             section.innerHTML = `
-            <div class="itinerary-title">Day ${activity.day}: ${activity.name}</div>
-            <div class="itinerary-date">${formatDate(d)}</div>
+            <div class="icons">
+                <div class="itinerary-date">${icon} ${formatDate(d)} (Day ${activity.day}) </div>
+            </div>
+            <div class="itinerary-title">${activity.name}</div>
             <div class="itinerary-section">
                 <span class="label">Time:</span> ${pad(activity.start_time)} - ${pad(activity.end_date)} ${pad(activity.end_time)}
             </div>
             <div class="itinerary-section">
                 <span class="label">Location:</span> ${activity.location}
             </div>
+            <div class="itinerary-section">
+                <span class="label">Estimated Duration:</span> ${activity.estimate_time}
+            </div>
+            <div class="itinerary-section">
+                <span class="label">Address:</span> ${activity.Address}
+            </div>
+            <div class="itinerary-section">
+                <span class="label">Description/Notes:</span> ${activity.desc}<br/> ${info}
+            </div>
                 <div class="overlay"></div>
-                <div class="day-content">
-                    <div class="day-date">${formatDate(d)}</div>
-                    <div class="icons">
-                        ${icon} ${activity.type}
-                    </div>
-                    <!--  <div class="day-title">${icon} ${activity.type}</div> -->
-                    <div class="day-title">${activity.name}</div>
-                    <div class="description">${desc}</div>
-                    <div class="description">${address}</div>
-                    <div class="start-hour">Time: ${pad(activity.start_time)} - ${pad(activity.end_date)} ${pad(activity.end_time)}</div>
-
-                    <a href="trip.html?id=${activity.id}" class="back-link">&larr; More detail</a>
-                </div>
+                
                 
             `;
             itinerary.appendChild(section);
         }
     </script>
     
-        <!-- 
-        <div class="itinerary-title">Day 1: Arrival in Paris</div>
-        <div class="itinerary-date">June 10, 2025</div>
-        <div class="itinerary-section">
-            <span class="label">Time:</span> 09:00 AM - 12:00 PM
-        </div>
-        <div class="itinerary-section">
-            <span class="label">Location:</span> Charles de Gaulle Airport, Paris
-        </div>
-        <div class="itinerary-section">
-            <span class="label">Activities:</span>
-            <ul>
-                <li>Arrive at airport</li>
-                <li>Meet tour guide</li>
-                <li>Transfer to hotel</li>
-            </ul>
-        </div>
-        <div class="itinerary-section">
-            <span class="label">Notes:</span> Please have your passport and travel documents ready for inspection.
-        </div>-->
     </div>
 </body>
 </html>
