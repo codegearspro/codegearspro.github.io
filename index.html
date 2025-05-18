@@ -79,7 +79,18 @@
                 padding: 0.7rem;
             }
         }
-    </style>
+        .back-link {
+            display: inline-block;
+            margin-top: 0.7rem;
+            color: #ffd700;
+            text-decoration: none;
+            font-size: 0.98rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #fffbe7;
+            text-decoration: underline;
+        }    </style>
 </head>
 <body>
     
@@ -99,87 +110,6 @@
             { type: 'Tour', icon: 'fa-route', desc: 'City sightseeing tour', img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80' },
             { type: 'Cruise', icon: 'fa-ship', desc: 'River cruise', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80' }
         ];*/
-/*
-
-https://plus.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-https://images.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?auto=format&fit=crop&w=600&q=80
-        const activities = [
-            {
-                type: "Flight",
-                start_date: "May 25",
-                end_date: "May 25",
-                start_time: "3:23 PM",
-                end_time: "5:55 PM",
-                location: "MCO-PHIL",
-                name: "Iberia 4469 (American Airlines)",
-                address: "MCO",
-                desc: "Flight to Philadelphia ",
-                estimate_time: "2 hours",
-                icon: 'fa-plane-departure',
-                img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80'
-            },
-            {
-                "type": "Flight",
-                "start_date": "May 25",
-                "end_date": "May 26",
-                "start_time": "8:25 PM",
-                "end_time": "9:35 AM",
-                "location": "PHIL-MAD",
-                "name": "Iberia 4674 (American Airlines)",
-                "address": "PHIL",
-                "desc": "Flight to Madrid",
-                "estimate_time": "7 hours",
-                icon: 'fa-plane-departure',
-                img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80'
-            },
-    {
-        "type": "Hotel Stay",
-        "start_date": "May 26",
-        "end_date": "May 30",
-        "start_time": "2:00 PM",
-        "end_time": "12:00 PM",
-        "location": "Madrid",
-        "name": "7 Islas Hotel. ",
-        "address": "Calle Valverde 14-16, Madrid, 28004 Spain",
-        "desc": "",
-        "estimate_time": "4 nights"
-    },
-    {
-        "type": "Tour",
-        "start_date": "May 27",
-        "end_date": "May 27",
-        "start_time": "10:00 AM",
-        "end_time": "12:00 PM",
-        "location": "Madrid",
-        "name": "Madrid: City Walking Tour & Royal Palace Skip-the-line Tour",
-        "address": "43 Mayor Street - Fun and Tickets Main Office.",
-        "desc": "",
-        "estimate_time": "2 hours"
-    },{
-        "type": "Tour",
-        "start_date": "May 28",
-        "end_date": "May 28",
-        "start_time": "10:00 AM",
-        "end_time": "2:45 PM",
-        "location": "Madrid",
-        "name": "IBE Tours. Padro Museum and El Retiro Park guided tour.",
-        "address": "Puerta de la Independencia of Retiro Park.",
-        "desc": "",
-        "estimate_time": "4:45 hours"
-    },
-    {
-        "type": "Tour",
-        "start_date": "May 29",
-        "end_date": "May 29",
-        "start_time": "7:45 AM",
-        "end_time": "8:45 PM",
-        "location": "Madrid",
-        "name": "Amigo Tours. Day Tour Toledo, Segovia, Avila",
-        "address": "Plaza de Las Ventanas. Julio Camba Street. Outside the metro station.",
-        "desc": "Check-In 18 minutes before.",
-        "estimate_time": "13 hours"
-    }
-        ];*/
         var activities = []
 
         fetch('https://codegearspro.github.io/trip2025.json')
@@ -194,8 +124,6 @@ https://images.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?auto=format
             .catch(err => {
                 console.warn('Could not load itinerary.json, using default activities.', err);
             });
-        
-        
 
         function getActivityForDay(dayIndex) {
             // Rotate activities for demo
@@ -273,7 +201,10 @@ https://images.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?auto=format
                         <div class="description">${desc}</div>
                         <div class="description">${address}</div>
                         <div class="start-hour">Time: ${pad(activity.start_time)} - ${pad(activity.end_date)} ${pad(activity.end_time)}</div>
+
+                        <a href="trip.html?id=${activity.id}" class="back-link">&larr; More detail</a>
                     </div>
+                    
                 `;
                 itinerary.appendChild(section);
             }

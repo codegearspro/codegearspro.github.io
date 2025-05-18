@@ -2,283 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Travel Itinerary</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Trip Itinerary Detail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #000;
-            color: #fff;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
-        .day-section {
-            background-size: cover;
-            background-position: center;
-            border-radius: 1rem;
-            margin-bottom: 1.5rem;
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            position: relative;
-            overflow: hidden;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg,rgba(0,0,0,0.2) 40%,rgba(0,0,0,0.7) 100%);
-            z-index: 1;
-        }
-        .day-content {
-            position: relative;
-            z-index: 2;
-            padding: 1rem;
-        }
-        .day-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.2rem;
-        }
-        .day-date {
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.85;
-        }
-        .icons {
-            margin-bottom: 0.5rem;
-        }
-        .icons i {
-            font-size: 1.2rem;
-            margin-right: 0.5rem;
-            opacity: 0.85;
-        }
-        .description {
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
-        }
-        .start-hour {
-            font-size: 0.95rem;
-            opacity: 0.85;
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 0.5rem;
-            }
-            .day-section {
-                min-height: 140px;
-            }
-            .day-content {
-                padding: 0.7rem;
-            }
-        }
+        body { font-family: Arial, sans-serif; margin: 40px; background: #000; }
+        .itinerary-container { background: #fff; padding: 24px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.08);}
+        .itinerary-title { font-size: 2em; margin-bottom: 8px; }
+        .itinerary-date { color: #888; margin-bottom: 16px; }
+        .itinerary-section { margin-bottom: 12px; }
+        .label { font-weight: bold; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #1976d2; text-decoration: none; }
+        .back-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-    
-    <div class="container" id="itinerary"><h1>Trip 2025 Itinerary</h1></div>
-    <script>
-        // default images
-        const images = [
-            { img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
-            { img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
-            { img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80' },
-            { img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80' }
-        ];
-        /*
-        const activities = [
-            { type: 'Flight', icon: 'fa-plane-departure', desc: 'Flight to Paris', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
-            { type: 'Hotel Stay', icon: 'fa-hotel', desc: 'Check-in at hotel', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
-            { type: 'Tour', icon: 'fa-route', desc: 'City sightseeing tour', img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80' },
-            { type: 'Cruise', icon: 'fa-ship', desc: 'River cruise', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80' }
-        ];*/
-/*
-
-https://plus.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-https://images.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?auto=format&fit=crop&w=600&q=80
-        const activities = [
-            {
-                type: "Flight",
-                start_date: "May 25",
-                end_date: "May 25",
-                start_time: "3:23 PM",
-                end_time: "5:55 PM",
-                location: "MCO-PHIL",
-                name: "Iberia 4469 (American Airlines)",
-                address: "MCO",
-                desc: "Flight to Philadelphia ",
-                estimate_time: "2 hours",
-                icon: 'fa-plane-departure',
-                img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80'
-            },
-            {
-                "type": "Flight",
-                "start_date": "May 25",
-                "end_date": "May 26",
-                "start_time": "8:25 PM",
-                "end_time": "9:35 AM",
-                "location": "PHIL-MAD",
-                "name": "Iberia 4674 (American Airlines)",
-                "address": "PHIL",
-                "desc": "Flight to Madrid",
-                "estimate_time": "7 hours",
-                icon: 'fa-plane-departure',
-                img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80'
-            },
-    {
-        "type": "Hotel Stay",
-        "start_date": "May 26",
-        "end_date": "May 30",
-        "start_time": "2:00 PM",
-        "end_time": "12:00 PM",
-        "location": "Madrid",
-        "name": "7 Islas Hotel. ",
-        "address": "Calle Valverde 14-16, Madrid, 28004 Spain",
-        "desc": "",
-        "estimate_time": "4 nights"
-    },
-    {
-        "type": "Tour",
-        "start_date": "May 27",
-        "end_date": "May 27",
-        "start_time": "10:00 AM",
-        "end_time": "12:00 PM",
-        "location": "Madrid",
-        "name": "Madrid: City Walking Tour & Royal Palace Skip-the-line Tour",
-        "address": "43 Mayor Street - Fun and Tickets Main Office.",
-        "desc": "",
-        "estimate_time": "2 hours"
-    },{
-        "type": "Tour",
-        "start_date": "May 28",
-        "end_date": "May 28",
-        "start_time": "10:00 AM",
-        "end_time": "2:45 PM",
-        "location": "Madrid",
-        "name": "IBE Tours. Padro Museum and El Retiro Park guided tour.",
-        "address": "Puerta de la Independencia of Retiro Park.",
-        "desc": "",
-        "estimate_time": "4:45 hours"
-    },
-    {
-        "type": "Tour",
-        "start_date": "May 29",
-        "end_date": "May 29",
-        "start_time": "7:45 AM",
-        "end_time": "8:45 PM",
-        "location": "Madrid",
-        "name": "Amigo Tours. Day Tour Toledo, Segovia, Avila",
-        "address": "Plaza de Las Ventanas. Julio Camba Street. Outside the metro station.",
-        "desc": "Check-In 18 minutes before.",
-        "estimate_time": "13 hours"
-    }
-        ];*/
-        var activities = []
-
-        fetch('https://codegearspro.github.io/trip2025.json')
-            .then(response => response.json())
-            .then(data => {
-                if (Array.isArray(data)) {
-                    activities.splice(0, activities.length, ...data);
-                }
-
-                generateItems(activities);
-            })
-            .catch(err => {
-                console.warn('Could not load itinerary.json, using default activities.', err);
-            });
-        
-        
-
-        function getActivityForDay(dayIndex) {
-            // Rotate activities for demo
-            return activities[dayIndex % activities.length];
-        }
-
-        function formatDate(date) {
-            return date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-        }
-
-        function pad(n) {
-            return n < 10 ? '0' + n : n;
-        }
-
-        //const startDate = new Date(2024, 4, 25); // May 25, 2024 (month is 0-based)
-        //const endDate = new Date(2024, 5, 13);   // June 13, 2024
-
-        function generateItems(activities) {
-            const itinerary = document.getElementById('itinerary');
-            let dayCount = 0;
-            //for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1), dayCount++) {
-            for (let index = 0; index < activities.length; index++, dayCount++) {
-                //const activity = getActivityForDay(dayCount);
-                //start_time
-                const activity = activities[index];
-
-                let d = new Date(activity.start_date);
-
-                let icon = "";
-                switch (activity.type) {
-                    case "Flight":
-                        icon = `<i class="fa-solid fa-plane-departure" title="Flight"></i>`;
-                        break;
-                    case "Hotel Stay":
-                        icon = `<i class="fa-solid fa-hotel" title="Hotel Stay"></i>`;
-                        break;
-                    case "Tour":
-                        icon = `<i class="fa-solid fa-route" title="Tour"></i>`;
-                        break;
-                    case "Cruise":
-                        icon = `<i class="fa-solid fa-ship" title="Cruise"></i>`;
-                        break;
-                    default:
-                        icon = `<i class="fa-solid fa-circle-question" title="Other"></i>`;
-                }
-                let imgIndex = Math.floor(Math.random() * images.length);
-
-                let img = images[imgIndex].img;
-                if (activity.img != "") {
-                    img = activity.img;
-                }
-
-                let desc = "";
-                if (activity.desc != undefined) {
-                    desc = activity.desc;
-                }
-                let address = "";
-                if (activity.address != undefined) {
-                    address = activity.address;
-                }
-
-                //const hour = 8 + (dayCount % 8); // Just for demo, start hour varies
-                const section = document.createElement('section');
-                section.className = 'day-section';
-                section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${img}')`;
-                section.innerHTML = `
-                    <div class="overlay"></div>
-                    <div class="day-content">
-                        <div class="day-date">${formatDate(d)}</div>
-                        <div class="icons">
-                            ${icon} ${activity.type}
-                        </div>
-                        <!--  <div class="day-title">${icon} ${activity.type}</div> -->
-                        <div class="day-title">${activity.name}</div>
-                        <div class="description">${desc}</div>
-                        <div class="description">${address}</div>
-                        <div class="start-hour">Time: ${pad(activity.start_time)} - ${pad(activity.end_date)} ${pad(activity.end_time)}</div>
-                    </div>
-                `;
-                itinerary.appendChild(section);
-            }
-        }
-        
-    </script>
+    <div class="itinerary-container">
+        <a href="index.html" class="back-link">&larr; Back to Itineraries</a>
+        <div class="itinerary-title">Day 1: Arrival in Paris</div>
+        <div class="itinerary-date">June 10, 2025</div>
+        <div class="itinerary-section">
+            <span class="label">Time:</span> 09:00 AM - 12:00 PM
+        </div>
+        <div class="itinerary-section">
+            <span class="label">Location:</span> Charles de Gaulle Airport, Paris
+        </div>
+        <div class="itinerary-section">
+            <span class="label">Activities:</span>
+            <ul>
+                <li>Arrive at airport</li>
+                <li>Meet tour guide</li>
+                <li>Transfer to hotel</li>
+            </ul>
+        </div>
+        <div class="itinerary-section">
+            <span class="label">Notes:</span> Please have your passport and travel documents ready for inspection.
+        </div>
+    </div>
 </body>
 </html>
