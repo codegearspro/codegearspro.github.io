@@ -124,7 +124,7 @@
         "Address": "Gran Via de las Corts Catalanes, 629, Barcelona, 08010 Spain",
         "desc": "",
         "estimate_time": "1 Night",
-        "info": "",
+        "info": "Hotel Indigo Barcelona - Plaza Catalunya by IHG<br/>1 night \u2022 3 adults \u2022 1 room<br/>Confirmation: 45633125<br/>Expedia itinerary: 73061844291678<br/>Reservation details<br/>Booked<br/><b>Check-in</b><br/>Fri, May 30<br/>3 PM<br/><b>Check-out</b><br/>Sat, May 31<br/>11 AM<br/>",
         "img": "https://images.trvl-media.com/lodging/6000000/5560000/5558100/5558058/eee86a4a.jpg?impolicy=resizecrop&rw=1200&ra=fit"
     },
     {
@@ -140,7 +140,7 @@
         "Address": "Port of Barcelona. Moll Adossat, 1 08039 Barcelona, Spain",
         "desc": "7-Night Mediterranean Cruise From Barcelona Ending In Civitavecchia (Rome)",
         "estimate_time": "7 Nights",
-        "info": "Deluxe Oceanview Stateroom with Verandah.  \nStateroom 10648. \nCategory: 05A\nDeck: 10\nLocation: Aft\nSeating\n5:45 PM (subject to change by 15 minutes",
+        "info": "<b>Disney Fantasy</b></br>Deluxe Oceanview Stateroom with Verandah. </br><b>Reservation:</b> 43012268. </br><b>Stateroom</b> 10648. </br><b>Category:</b> 05A</br><b>Deck:</b> 10</br><b>Location:</b> Aft</br></br><b>Seating</b></br><b>Port Arrival Time:</b> 11:45AM - 12:00 PM</br></br><b>Dinner Time:</b> 5:45 PM (subject to change by 15 minutes</br>",
         "img": "https://cdn1.parksmedia.wdprapps.disney.com/resize/mwImage/1/1600/375/75/vision-dam/digital/parks-platform/parks-global-assets/disney-cruise-line/ships/dream/2050658274_0109ZZ_0881DR_1600x375.jpg?2025-02-17T21:07:12+00:00"
     },
     {
@@ -152,11 +152,11 @@
         "start_time": "9:45 AM",
         "end_time": "5:45 PM",
         "location": "Marseille, France",
-        "name": "Cruise Excursion: Avignon and Marseille Tour",
+        "name": "Cruise Excursion: Avignon and Marseille Tour (MS36)",
         "Address": "Marseille, France",
         "desc": "",
         "estimate_time": "8 hours",
-        "info": "",
+        "info": "Tour 2 cities in southern France on this European adventure.</br> Walk the cobbled streets of beautiful Avignon before exploring the historic Notre-Dame de la Garde. </br></br>On this adventure you will\u2026 </br></br>Begin with a 90-minute scenic drive to the city of Avignon, where towers rise from a sea of pink tiles in this walled city on the Rh\u00f4ne River. </br>Walk through the narrow, cobbled streets as you take a 60-minute guided tour, including a visit of the Pope's Palace and learn about Avignon\u2019s interesting history. </br>View the Pont d'Avignon, made famous by the eponymous children's song. In the heart of Avignon stands the abandoned fortified Palace of the Popes. Stroll through the deserted galleries, chambers and chapels of the palace. </br>Enjoy 75 minutes of free time to sample local cuisine and shop for souvenirs and provincial crafts. </br>Climb back aboard the motor coach for the 75-minute drive back to Marseille to visit the Notre-Dame de la Garde. The Basilica sits on a hill overlooking the city with a superb view of the Vieux Port. </br>Return to the pier.</br>",
         "img": "https://cdn1.parksmedia.wdprapps.disney.com/resize/mwImage/1/640/427/75/dam/wdpro-assets/dcl/finder/destinations/ports-of-call/marseilles-france/port-itinerary-marseilles-france-00.jpg?1703832654717"
     },
     {
@@ -184,7 +184,7 @@
         "start_time": "7:30 AM",
         "end_time": "5:30 PM",
         "location": "Genoa, Italy",
-        "name": "Cruise Excursion: Highlights of Milan",
+        "name": "Cruise Excursion: Highlights of Milan (GN06)",
         "Address": "Genoa and Millan ",
         "desc": "",
         "estimate_time": "10 hours",
@@ -200,7 +200,7 @@
         "start_time": "8:00 AM",
         "end_time": "6:30 PM",
         "location": "Livorno, Italy",
-        "name": "Cruise Excursion: Discovering Florence",
+        "name": "Cruise Excursion: Discovering Florence (LV04)",
         "Address": "Livorno, Florence, Pisa",
         "desc": "Tour of Florence",
         "estimate_time": "10 hours",
@@ -232,7 +232,7 @@
         "start_time": "8:30 AM",
         "end_time": "2:00 PM",
         "location": "Naples, Italy",
-        "name": "Cruise Excursion: Naples Cityscape & Pompeii Walking Tour",
+        "name": "Cruise Excursion: Naples Cityscape & Pompeii Walking Tour (NP81)",
         "Address": "Naples and Pompeii",
         "desc": "",
         "estimate_time": "5 Hours",
@@ -268,7 +268,7 @@
         "Address": "Via di Santa Maria Maggiore 143, Rome, RM, 185 Italy",
         "desc": "",
         "estimate_time": "5 nights",
-        "info": "",
+        "info": "The Major</br>5 nights \u2022 3 adults \u2022 1 room</br>Confirmation: 2160550658</br>Expedia itinerary: 73061859531267</br>Reservation details</br></br>Booked</br>Check-in</br>Sat, Jun 7</br>2:00 PM</br></br>Check-out</br>Thu, Jun 12</br>11:00 AM",
         "img": "https://images.trvl-media.com/lodging/1000000/530000/527500/527479/1290c04d.jpg?impolicy=resizecrop&rw=1200&ra=fit"
     },
     {
@@ -332,7 +332,7 @@
         "Address": "FCO-Fiumicino- Leonardo da Vinci Intl.",
         "desc": " Wizz Air Malta 6013",
         "estimate_time": "3 hours",
-        "info": "",
+        "info": "Wizz Air Malta</br></br><b>Confirmation:</b> OLL18T</br></br>Expedia itinerary: 73061871444891</br></br>Rome to Madrid</br>5:15pm</br>Departs Thu, Jun 12</br>Rome, Italy (FCO-Fiumicino - Leonardo da Vinci Intl.)</br>7:55pm</br>Arrives Thu, Jun 12</br>Madrid, Spain (MAD-Adolfo Su\u00e1rez Madrid-Barajas)</br>2h 40m duration</br>Wizz Air Malta 6013</br>Economy / Coach (Y)</br>Total duration: 2h 40m",
         "img": "https://plus.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
@@ -345,10 +345,10 @@
         "end_time": "12:00 PM",
         "location": "Madrid",
         "name": "Stay at the B&B Hotel Madrid Centro",
-        "Address": "Calle Atocha. 2, Madrid, 28012, Spain",
+        "Address": "Calle Atocha, 2, Madrid, 28012 Spain",
         "desc": "",
         "estimate_time": "1 night",
-        "info": "",
+        "info": "B&B Hotel Madrid Centro Plaza Mayor</br>1 night \u2022 3 adults \u2022 1 room</br>Confirmation: 2160561050</br>Expedia itinerary: 73061878592274</br></br>Reservation details</br>Booked</br>Check-in</br>Thu, Jun 12</br>2:00 PM</br>Check-out</br>Fri, Jun 13</br>noon",
         "img": "https://images.trvl-media.com/lodging/69000000/68570000/68567800/68567772/18158d2a.jpg?impolicy=resizecrop&rw=1200&ra=fit"
     },
     {
@@ -364,7 +364,7 @@
         "Address": "MAD",
         "desc": "Iberia 0333",
         "estimate_time": "10 hours",
-        "info": "",
+        "info": "Iberia</br></br><b>Confirmation:</b> N2ZP9</br></br>Expedia itinerary: 73059607038688</br></br>Madrid to Orlando</br>11:30am</br>Departs Fri, Jun 13</br>Madrid, Spain (MAD-Adolfo Su\u00e1rez Madrid-Barajas)</br>3:25pm</br>Arrives Fri, Jun 13</br>Miami, FL, United States (MIA-Miami Intl.)</br>9h 55m duration</br>Iberia 0333</br>Economy / Coach (O)</br>Layover: 1h 53m</br>5:18pm</br>Departs Fri, Jun 13</br>Miami, FL, United States (MIA-Miami Intl.)</br>6:30pm</br>Arrives Fri, Jun 13</br>Orlando, FL, United States (MCO-Orlando Intl.)</br>1h 12m duration</br>Iberia 4133 operated by American Airlines</br>Economy / Coach (O)</br>Total duration: 13h",
         "img": "https://plus.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
 ]
