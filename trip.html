@@ -16,8 +16,99 @@
     </style>
 </head>
 <body>
-    <div class="itinerary-container">
+    <div class="itinerary-container" id="itinerary">
         <a href="index.html" class="back-link">&larr; Back to Itineraries</a>
+    <script>
+        function formatDate(date) {
+            return date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+        }
+
+        function pad(n) {
+            return n < 10 ? '0' + n : n;
+        }
+        const images = [
+            { img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
+            { img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
+            { img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80' },
+            { img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80' }
+        ];
+        var activities = []
+
+        fetch('https://codegearspro.github.io/trip2025.json')
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    activities.splice(0, activities.length, ...data);
+                }
+                // Get id from URL query string
+                const params = new URLSearchParams(window.location.search);
+                const id = params.has('id') ? parseInt(params.get('id'), 10) : 0;
+                generateItems(activities, id);
+            })
+            .catch(err => {
+                console.warn('Could not load trip2025.json, using default activities.', err);
+            });
+        function generateItems(activities, id) {
+            const activity = activities[id - 1];
+            let d = new Date(activity.start_date);
+            let icon = "";
+            switch (activity.type) {
+                case "Flight":
+                    icon = `<i class="fa-solid fa-plane-departure" title="Flight"></i>`;
+                    break;
+                case "Hotel Stay":
+                    icon = `<i class="fa-solid fa-hotel" title="Hotel Stay"></i>`;
+                    break;
+                case "Tour":
+                    icon = `<i class="fa-solid fa-route" title="Tour"></i>`;
+                    break;
+                case "Cruise":
+                    icon = `<i class="fa-solid fa-ship" title="Cruise"></i>`;
+                    break;
+                default:
+                    icon = `<i class="fa-solid fa-circle-question" title="Other"></i>`;
+            }
+            let imgIndex = Math.floor(Math.random() * images.length);
+
+            let img = images[imgIndex].img;
+            if (activity.img != "") {
+                img = activity.img;
+            }
+            let desc = "";
+            if (activity.desc != undefined) {
+                desc = activity.desc;
+            }
+            let address = "";
+            if (activity.address != undefined) {
+                address = activity.address;
+            }
+
+            const itinerary = document.getElementById('itinerary');
+            const section = document.createElement('section');
+            section.className = 'day-section';
+            section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${img}')`;
+            section.innerHTML = `
+                <div class="overlay"></div>
+                <div class="day-content">
+                    <div class="day-date">${formatDate(d)}</div>
+                    <div class="icons">
+                        ${icon} ${activity.type}
+                    </div>
+                    <!--  <div class="day-title">${icon} ${activity.type}</div> -->
+                    <div class="day-title">${activity.name}</div>
+                    <div class="description">${desc}</div>
+                    <div class="description">${address}</div>
+                    <div class="start-hour">Time: ${pad(activity.start_time)} - ${pad(activity.end_date)} ${pad(activity.end_time)}</div>
+
+                    <a href="trip.html?id=${activity.id}" class="back-link">&larr; More detail</a>
+                </div>
+                
+            `;
+            itinerary.appendChild(section);
+        }
+    </script>
+    
+        <!-- 
         <div class="itinerary-title">Day 1: Arrival in Paris</div>
         <div class="itinerary-date">June 10, 2025</div>
         <div class="itinerary-section">
@@ -36,7 +127,7 @@
         </div>
         <div class="itinerary-section">
             <span class="label">Notes:</span> Please have your passport and travel documents ready for inspection.
-        </div>
+        </div>-->
     </div>
 </body>
 </html>
