@@ -22,6 +22,12 @@
             margin-right: 0.5rem;
             opacity: 0.85;
         }
+        .icons img {
+            border-radius: .25rem;
+            object-fit: cover;
+            width: 100px;
+            height: 100px;
+        }
 
     </style>
 </head>
@@ -103,6 +109,9 @@
             section.className = 'day-section';
             //section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${img}')`;
             section.innerHTML = `
+            <div class="icons" >
+                <img src="${img}" />
+            </div>
             <div class="icons">
                 <div class="itinerary-date">${icon} ${formatDate(d)} (Day ${activity.day}) </div>
             </div>
@@ -123,7 +132,7 @@
                 <span class="label">Description/Notes:</span> ${activity.desc}<br/> ${info}
             </div>
                 <div class="overlay"></div>
-                
+                <a href="index.html" class="back-link">&larr; Back to Itineraries</a>
                 
             `;
             itinerary.appendChild(section);
