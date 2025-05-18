@@ -88,6 +88,14 @@
             section.className = 'day-section';
             section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${img}')`;
             section.innerHTML = `
+            <div class="itinerary-title">Day ${activity.day}: ${activity.name}</div>
+            <div class="itinerary-date">${formatDate(d)}</div>
+            <div class="itinerary-section">
+                <span class="label">Time:</span> ${pad(activity.start_time)} - ${pad(activity.end_date)} ${pad(activity.end_time)}
+            </div>
+            <div class="itinerary-section">
+                <span class="label">Location:</span> ${activity.location}
+            </div>
                 <div class="overlay"></div>
                 <div class="day-content">
                     <div class="day-date">${formatDate(d)}</div>
