@@ -9,7 +9,8 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f4f4f4;
+            background: #000;
+            color: #fff;
         }
         .container {
             max-width: 600px;
@@ -81,9 +82,16 @@
     </style>
 </head>
 <body>
-    <div class="container" id="itinerary"></div>
+    
+    <div class="container" id="itinerary"><h1>Trip 2025 Itinerary</h1></div>
     <script>
-        // Sample data for each day (customize as needed)
+        // default images
+        const images = [
+            { img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
+            { img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
+            { img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80' },
+            { img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80' }
+        ];
         /*
         const activities = [
             { type: 'Flight', icon: 'fa-plane-departure', desc: 'Flight to Paris', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80' },
@@ -233,11 +241,26 @@ https://images.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?auto=format
                     default:
                         icon = `<i class="fa-solid fa-circle-question" title="Other"></i>`;
                 }
+                let imgIndex = Math.floor(Math.random() * images.length);
+
+                let img = images[imgIndex].img;
+                if (activity.img != "") {
+                    img = activity.img;
+                }
+
+                let desc = "";
+                if (activity.desc != undefined) {
+                    desc = activity.desc;
+                }
+                let address = "";
+                if (activity.address != undefined) {
+                    address = activity.address;
+                }
 
                 //const hour = 8 + (dayCount % 8); // Just for demo, start hour varies
                 const section = document.createElement('section');
                 section.className = 'day-section';
-                section.style.backgroundImage = `url('${activity.img}')`;
+                section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${img}')`;
                 section.innerHTML = `
                     <div class="overlay"></div>
                     <div class="day-content">
@@ -247,8 +270,8 @@ https://images.unsplash.com/premium_photo-1679830513886-e09cd6dc3137?auto=format
                         </div>
                         <!--  <div class="day-title">${icon} ${activity.type}</div> -->
                         <div class="day-title">${activity.name}</div>
-                        <div class="description">${activity.desc}</div>
-                        <div class="description">${activity.address}</div>
+                        <div class="description">${desc}</div>
+                        <div class="description">${address}</div>
                         <div class="start-hour">Time: ${pad(activity.start_time)} - ${pad(activity.end_date)} ${pad(activity.end_time)}</div>
                     </div>
                 `;
