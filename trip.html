@@ -7,7 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; background: #000; }
-        .itinerary-container { background: #fff; padding: 24px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.08);}
+        .itinerary-container { 
+            background: #fff; 
+            padding: 5px; 
+            border-radius: 8px; 
+            max-width: 500px; 
+            margin: auto; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
         .itinerary-title { font-size: 2em; margin-bottom: 8px; }
         .itinerary-date { color: #888; margin-bottom: 16px; }
         .itinerary-section { margin-bottom: 12px; }
@@ -29,11 +36,118 @@
             height: 100px;
         }
 
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .day-section {
+            background-size: cover;
+            background-position: center;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            color: #000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .overlay {
+            position: absolute;
+            inset: 0;
+            /*background: linear-gradient(180deg,rgba(0,0,0,0.2) 40%,rgba(0,0,0,0.7) 100%);*/
+            z-index: 1;
+        }
+        .day-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+        }
+        .day-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.2rem;
+        }
+        .day-date {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.85;
+        }
+        .icons {
+            margin-bottom: 0.5rem;
+        }
+        .icons i {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            opacity: 0.85;
+        }
+        .description {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        .start-hour {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 0.5rem;
+            }
+            .day-section {
+                min-height: 140px;
+            }
+            .day-content {
+                padding: 0.7rem;
+            }
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 0.7rem;
+            color: #ffd700;
+            text-decoration: none;
+            font-size: 0.98rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #fffbe7;
+            text-decoration: underline;
+        }
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
     </style>
 </head>
 <body>
+    <nav style="background: #111; padding: 0.7rem 0; box-shadow: 0 1px 4px rgba(0,0,0,0.12);">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+            
+            <span style="font-weight: bold; font-size: 1.1rem; letter-spacing: 1px;">Trip 2025 - Itinerary Detail</span>
+            <span id="today-date" style="font-size: 1rem; opacity: 0.85;"></span>
+            <script>
+                document.getElementById('today-date').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            </script>
+            <!--<a href="index.html" class="back-link" style="margin: 0;">Back Itinerary View</a>-->
+            <a href="javascript:history.back()" class="back-link" style="margin-left: 1rem;">
+                <i class="fa fa-arrow-left"></i> Back
+            </a>
+            
+
+        </div>
+    </nav>
+
     <div class="itinerary-container" id="itinerary">
-        <a href="index.html" class="back-link">&larr; Back to Itineraries</a>
     <script>
         function formatDate(date) {
             return date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
@@ -131,9 +245,11 @@
             <div class="itinerary-section">
                 <span class="label">Description/Notes:</span> ${activity.desc}<br/> ${info}
             </div>
-                <div class="overlay"></div>
-                <a href="index.html" class="back-link">&larr; Back to Itineraries</a>
                 
+                <!--<a href="index.html" class="back-link">&larr; Back to Itineraries</a>-->
+                <a href="javascript:history.back()" class="back-link" style="margin-left: 1rem;">
+                    <i class="fa fa-arrow-left"></i> Back
+                </a>
             `;
             itinerary.appendChild(section);
         }

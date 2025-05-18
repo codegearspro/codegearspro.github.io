@@ -10,11 +10,115 @@
         .group { background: #f0f8ff; padding: 1em; border-radius: 6px; margin-bottom: 1em; }
         .group-title { font-weight: bold; }
         .activity { margin-left: 1em; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .day-section {
+            background-size: cover;
+            background-position: center;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            color: #000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .overlay {
+            position: absolute;
+            inset: 0;
+            /*background: linear-gradient(180deg,rgba(0,0,0,0.2) 40%,rgba(0,0,0,0.7) 100%);*/
+            z-index: 1;
+        }
+        .day-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+        }
+        .day-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.2rem;
+        }
+        .day-date {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.85;
+        }
+        .icons {
+            margin-bottom: 0.5rem;
+        }
+        .icons i {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            opacity: 0.85;
+        }
+        .description {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        .start-hour {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 0.5rem;
+            }
+            .day-section {
+                min-height: 140px;
+            }
+            .day-content {
+                padding: 0.7rem;
+            }
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 0.7rem;
+            color: #ffd700;
+            text-decoration: none;
+            font-size: 0.98rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #fffbe7;
+            text-decoration: underline;
+        }
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
     </style>
 </head>
 <body>
-    <h1>Trip 2025 - Group View</h1>
-    <a href="index.html" class="back-link">&larr;Back</a>
+    <nav style="background: #111; padding: 0.7rem 0; box-shadow: 0 1px 4px rgba(0,0,0,0.12);">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+            
+            <span style="font-weight: bold; font-size: 1.1rem; letter-spacing: 1px;">Trip 2025 - Itinerary Detail</span>
+            <span id="today-date" style="font-size: 1rem; opacity: 0.85;"></span>
+            <script>
+                document.getElementById('today-date').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            </script>
+            <!--<a href="index.html" class="back-link" style="margin: 0;">Back Itinerary View</a>-->
+            <a href="javascript:history.back()" class="back-link" style="margin-left: 1rem;">
+                <i class="fa fa-arrow-left"></i> Back
+            </a>
+        </div>
+    </nav>
+
     <ul id="daysMain" class="day-list"></ul>
     <script>
         async function fetchTripData() {
@@ -127,12 +231,17 @@
 
             days.forEach(day => {
                 // create day rows
+                const section = document.createElement('section');
+                section.className = 'day-section';
+
+
                 const li = document.createElement('li');
                 li.className = 'day-item';
                 const dateHeader = document.createElement('div');
                 dateHeader.textContent = formatDate(day);
                 dateHeader.style.fontWeight = 'bold';
                 li.appendChild(dateHeader);
+
 
                 // add items inside day
                 dayMap[day].forEach(item => {
@@ -150,6 +259,7 @@
                     }
                 });
 
+                //daysList.appendChild(section);
                 daysList.appendChild(li);
             });
         }

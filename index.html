@@ -26,7 +26,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             position: relative;
             overflow: hidden;
-            min-height: 180px;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -40,7 +40,7 @@
         .day-content {
             position: relative;
             z-index: 2;
-            padding: 1rem;
+            padding: 2rem;
         }
         .day-title {
             font-size: 1.2rem;
@@ -90,11 +90,27 @@
         .back-link:hover {
             color: #fffbe7;
             text-decoration: underline;
-        }    </style>
+        }
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+</style>
 </head>
 <body>
+    <nav style="background: #111; padding: 0.7rem 0; box-shadow: 0 1px 4px rgba(0,0,0,0.12);">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-weight: bold; font-size: 1.1rem; letter-spacing: 1px;">Trip 2025 - Itinerary</span>
+            <span id="today-date" style="font-size: 1rem; opacity: 0.85;"></span>
+            <script>
+                document.getElementById('today-date').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            </script>
+            <a href="groupView.html" class="back-link" style="margin: 0;">Grouped View</a>
+        </div>
+    </nav>
     
-    <div class="container" id="itinerary"><h1>Trip 2025 Itinerary</h1><a href="groupView.html" class="back-link">&larr;Grouped View</a></div>
+    <div class="container" id="itinerary"></div>
     <script>
         // default images
         const images = [
@@ -140,6 +156,9 @@
 
         //const startDate = new Date(2024, 4, 25); // May 25, 2024 (month is 0-based)
         //const endDate = new Date(2024, 5, 13);   // June 13, 2024
+        function sectionClick(id) {
+            window.location.href = `trip.html?id=${id}`;
+        }
 
         function generateItems(activities) {
             const itinerary = document.getElementById('itinerary');
@@ -192,6 +211,8 @@
                 const section = document.createElement('section');
                 section.className = 'day-section';
                 section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${img}')`;
+                section.addEventListener('click', () => sectionClick(activity.id));
+                //section.onclick = "sectionClick(${activity.id})";
                 section.innerHTML = `
                     <div class="overlay"></div>
                     <div class="day-content">
@@ -205,7 +226,7 @@
                         <!--<div class="description">${address}</div>-->
                         <div class="start-hour">Time: ${pad(activity.start_time)} - ${pad(activity.end_date)} ${pad(activity.end_time)}</div>
 
-                        <a href="trip.html?id=${activity.id}" class="back-link">&larr; More detail</a>
+                        <!--<a href="trip.html?id=${activity.id}" class="back-link">&larr; More detail</a>-->
                     </div>
                     
                 `;
