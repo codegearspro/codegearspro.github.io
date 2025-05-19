@@ -280,10 +280,16 @@
             });
         }
 
+        function sectionClick(id) {
+            window.location.href = `trip.html?id=${id}`;
+        }
+
+
         function renderItemCard(day, item) {
             let icon = returnIcon(item.type)
             const li = document.createElement('li');
             li.className = 'day-item';
+            li.addEventListener('click', () => sectionClick(item.id));
             const dateHeader = document.createElement('div');
             dateHeader.textContent = formatDate(day);
             dateHeader.style.fontWeight = 'bold';
