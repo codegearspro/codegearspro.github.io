@@ -3,13 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Trip 2025 - Group View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        /*
         body { font-family: Arial, sans-serif; margin: 2em; }
-        .day-list { list-style: none; padding: 0; }
-        .day-item { margin-bottom: 1.5em; }
+        
+        
         .group { background: #f0f8ff; padding: 1em; border-radius: 6px; margin-bottom: 1em; }
         .group-title { font-weight: bold; }
         .activity { margin-left: 1em; }
+*/
+        .day-item {
+            list-style: none; padding: 0;
+            margin-bottom: 1.5em;
+            background-color: aqua;
+            border-radius: 1.5rem;
+            padding: 1.1rem;
+        }
+
+        .day-list { list-style: none; padding: 0; }
+
+        .group-title { font-weight: bold; }
+        
+        .day-item { margin-bottom: 1.5em; }
 
         body {
             margin: 0;
@@ -31,10 +47,12 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             position: relative;
             overflow: hidden;
-            min-height: 160px;
+            /*min-height: 160px;*/
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            background-color: #fff;
+            padding: 1.5rem;
         }
         .overlay {
             position: absolute;
@@ -107,7 +125,7 @@
     <nav style="background: #111; padding: 0.7rem 0; box-shadow: 0 1px 4px rgba(0,0,0,0.12);">
         <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
             
-            <span style="font-weight: bold; font-size: 1.1rem; letter-spacing: 1px;">Trip 2025 - Itinerary Detail</span>
+            <span style="font-weight: bold; font-size: 1.1rem; letter-spacing: 1px;">Trip 2025 - Itinerary Stay View</span>
             <span id="today-date" style="font-size: 1rem; opacity: 0.85;"></span>
             <script>
                 document.getElementById('today-date').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -119,7 +137,7 @@
         </div>
     </nav>
 
-    <ul id="daysMain" class="day-list"></ul>
+    <ul id="daysMain" class="day-list container"></ul>
     <script>
         async function fetchTripData() {
             const res = await fetch('https://codegearspro.github.io/trip2025.json');
@@ -234,14 +252,12 @@
                 const section = document.createElement('section');
                 section.className = 'day-section';
 
-
                 const li = document.createElement('li');
                 li.className = 'day-item';
                 const dateHeader = document.createElement('div');
                 dateHeader.textContent = formatDate(day);
                 dateHeader.style.fontWeight = 'bold';
                 li.appendChild(dateHeader);
-
 
                 // add items inside day
                 dayMap[day].forEach(item => {
@@ -265,6 +281,7 @@
         }
 
         function renderItemCard(day, item) {
+            let icon = returnIcon(item.type)
             const li = document.createElement('li');
             li.className = 'day-item';
             const dateHeader = document.createElement('div');
@@ -273,8 +290,8 @@
             li.appendChild(dateHeader);
             const groupDiv = document.createElement('div');
             groupDiv.className = 'group';
-            groupDiv.innerHTML = `<span class="group-title">${item.type} :</span> ${item.name || ''} <br>
-                <small>${getDateRange(item.start_date, item.end_date)}</small>`;
+            groupDiv.innerHTML = `<span class="group-title">${icon} ${item.type} :</span> ${item.name || ''} </br>
+                <small>${item.start_time} - ${item.end_time}</small></br><small>${item.estimate_time}</small>`;
             li.appendChild(groupDiv);
 
             return li;
@@ -296,22 +313,48 @@
             return li;
         }
 
+        function returnIcon(type) {
+            let icon = "";
+            switch (type) {
+                case "Flight":
+                    icon = `<span class="fa-solid fa-plane-departure" title="Flight"></span>`;
+                    break;
+                case "Hotel Stay":
+                    icon = `<span class="fa-solid fa-hotel" title="Hotel Stay"></span>`;
+                    break;
+                case "Tour":
+                    icon = `<span class="fa-solid fa-route" title="Tour"></span>`;
+                    break;
+                case "Cruise":
+                    icon = `<span class="fa-solid fa-ship" title="Cruise"></span>`;
+                    break;
+                case "Cruise Stay":
+                    icon = `<span class="fa-solid fa-ship" title="Cruise"></span>`;
+                    break;
+                default:
+                    icon = `<span class="fa-solid fa-circle-question" title="Other"></span>`;
+            }
+            return icon;
+        }
+
         function renderDaysGroup(stayMap) {
             const daysList = document.getElementById('daysMain');
 
             stayMap.forEach(stay => {
                 let day = parseDateString(stay.start_date);
+                let icon = returnIcon(stay.type)
 
                 const li = document.createElement('li');
-                li.className = 'day-item';
+                li.className = 'day-item2';
                 const dateHeader = document.createElement('div');
                 //dateHeader.textContent = formatDate(day);
                 dateHeader.style.fontWeight = 'bold';
                 li.appendChild(dateHeader);
                 const groupDiv = document.createElement('div');
                 groupDiv.className = 'group';
-                groupDiv.innerHTML = `<span class="group-title">${stay.type} :</span> ${stay.name || ''} <br>
-                    <small>${getDateRange(stay.start_date, stay.end_date)}</small>`;
+                groupDiv.className = 'day-section';
+                groupDiv.innerHTML = `<span class="group-title">${icon} ${stay.type} : ${stay.name || ''} </span> 
+                    <small>${getDateRange(stay.start_date, stay.end_date)}</small></br>`;
                 li.appendChild(groupDiv);
 
                 // get the dates inside the say 
