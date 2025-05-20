@@ -329,6 +329,7 @@
                 <a href="javascript:history.back()" class="back-link" style="margin-left: 1rem;">
                     <i class="fa fa-arrow-left"></i> Back
                 </a>-->
+                ${activity.doc ? `<div class="itinerary-section"><a href="https://codegearspro.github.io/doc/${activity.doc}" target="_blank" style="color:#1976d2;text-decoration:underline;"><i class="fa-solid fa-file-lines"></i> View Document</a></div>` : ""}
             `;
             itinerary.appendChild(section);
         }
