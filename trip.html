@@ -61,6 +61,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            padding: 2rem;
         }
         .overlay {
             position: absolute;
@@ -127,21 +128,68 @@
             top: 0;
             z-index: 100;
         }
+
+        .burger-menu {
+            background:none;
+            border:none;
+            color:#ffd700;
+            font-size:1.5rem;
+            cursor:pointer;
+            display:inline-flex;
+            align-items:center;
+        }
+
+        .side-menu {
+            position:fixed;
+            top:0;
+            /*left:-220px;
+            width:200px;*/
+            visibility: hidden;
+
+            height:100%;
+            background:#181818;b
+            box-shadow:2px 0 8px rgba(0,0,0,0.18);
+            z-index:200;
+            transition:left 0.25s;
+            padding:1.2rem 1rem;
+        }
     </style>
 </head>
 <body>
     <nav style="background: #111; padding: 0.7rem 0; box-shadow: 0 1px 4px rgba(0,0,0,0.12);">
         <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+
+        <button id="burger-menu" aria-label="Open menu" class="burger-menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div id="side-menu" class="side-menu">
+            <button id="close-menu" aria-label="Close menu" style="background:none;border:none;color:#ffd700;font-size:1.3rem;position:absolute;top:10px;right:10px;cursor:pointer;">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <nav style="margin-top:2.5rem;display:flex;flex-direction:column;gap:1.2rem;">
+                <a href="index.html" style="color:#ffd700;text-decoration:none;font-size:1.05rem;"><i class="fa-solid fa-home"></i> Home</a>
+                <a href="groupView.html" style="color:#ffd700;text-decoration:none;font-size:1.05rem;"><i class="fa-solid fa-layer-group"></i> Grouped View</a>
+                <!-- Add more links as needed -->
+            </nav>
+        </div>
+        <script>
             
-            <span style="font-weight: bold; font-size: 1.1rem; letter-spacing: 1px;">Trip 2025 - Itinerary Detail</span>
+            const burger = document.getElementById('burger-menu');
+            const sideMenu = document.getElementById('side-menu');
+            const closeMenu = document.getElementById('close-menu');
+            burger.onclick = () => { sideMenu.style.visibility = 'visible'; };//visibility: hidden;
+            closeMenu.onclick = () => { sideMenu.style.visibility = 'hidden'; };
+            window.addEventListener('click', function(e) {
+                if (sideMenu.style.left === '0px' && !sideMenu.contains(e.target) && e.target !== burger) {
+                    sideMenu.style.left = '-220px';
+                }
+            });
+        </script>
+            <span style="font-weight: bold; font-size: 1.1rem; letter-spacing: 1px;">Trip 2025 - Itinerary</span>
             <span id="today-date" style="font-size: 1rem; opacity: 0.85;"></span>
             <script>
                 document.getElementById('today-date').textContent = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             </script>
-            <!--<a href="index.html" class="back-link" style="margin: 0;">Back Itinerary View</a>-->
-            <a href="javascript:history.back()" class="back-link" style="margin-left: 1rem;">
-                <i class="fa fa-arrow-left"></i> Back
-            </a>
         </div>
     </nav>
 <!--
@@ -165,6 +213,11 @@
 
     <div class="itinerary-container" id="itinerary">
     <script>
+        function goHome() {
+            window.location.href = `index.html`;
+            //javascript:history.back()
+        }
+
         function formatDate(date) {
             return date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
         }
@@ -214,6 +267,9 @@
                 case "Cruise Stay":
                     icon = `<i class="fa-solid fa-ship" title="Cruise"></i>`;
                     break;
+                case "Dinner":
+                        icon = `<i class="fa-solid fa-bowl-food" title="Cruise"></i>`;
+                        break;
                 default:
                     icon = `<i class="fa-solid fa-circle-question" title="Other"></i>`;
             }
@@ -242,6 +298,10 @@
             section.className = 'day-section';
             //section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('${img}')`;
             section.innerHTML = `
+            <a href="javascript:history.back()" class="back-link" style="background:none;border:none;color:#ffd700;font-size:1.3rem;position:absolute;top:10px;right:10px;cursor:pointer;">
+                    <i class="fa-solid fa-times"></i>
+                </a>
+
             <div class="icons" >
                 <img src="${img}" />
             </div>
@@ -265,10 +325,10 @@
                 <span class="label">Description/Notes:</span> ${activity.desc}<br/> ${info}
             </div>
                 
-                <!--<a href="index.html" class="back-link">&larr; Back to Itineraries</a>-->
+                <!--<a href="index.html" class="back-link">&larr; Back to Itineraries</a>
                 <a href="javascript:history.back()" class="back-link" style="margin-left: 1rem;">
                     <i class="fa fa-arrow-left"></i> Back
-                </a>
+                </a>-->
             `;
             itinerary.appendChild(section);
         }
@@ -290,6 +350,7 @@
                 updateMap(activity.Address);
             }
         }*/
+
     </script>
     
     </div>
