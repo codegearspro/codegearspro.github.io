@@ -212,6 +212,8 @@
         }
 
         function generateItems(activities) {
+            const today = new Date();
+            
             const itinerary = document.getElementById('itinerary');
             let dayCount = 0;
             //for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1), dayCount++) {
@@ -221,6 +223,11 @@
                 const activity = activities[index];
 
                 let d = new Date(activity.start_date);
+                // Skip if the activity date is before today
+                today.setHours(0, 0, 0, 0);
+                if (d < today) {
+                    continue;
+                }
 
                 let icon = "";
                 switch (activity.type) {
